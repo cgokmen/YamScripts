@@ -1,0 +1,5 @@
+UNAME = "sultanskyman"
+PW = ""
+CLIENTID = ""
+CLIENTSECRET = ""
+AGENT = "YamVoteRequests_1.0"

@@ -1,0 +1,5 @@
+UNAME = "YamliamentBot"
+PW = ""
+CLIENTID = ""
+CLIENTSECRET = ""
+AGENT = "YamliamentBot_1.0"
