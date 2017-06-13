@@ -1,4 +1,9 @@
 from datetime import timedelta
+import os
+
+DBFILE = "yamecon.db"
+DBDIR = os.path.dirname(os.path.realpath(__file__))
+DBPATH = os.path.join(DBDIR, DBFILE)
 
 SLEEP = 5 # Seconds
 

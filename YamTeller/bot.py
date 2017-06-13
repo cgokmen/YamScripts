@@ -1,5 +1,6 @@
 import time
 import settings
+import os
 import praw
 import controllers
 import logging
@@ -40,7 +41,7 @@ if __name__ == "__main__":
     if settings.STOCK_EXCHANGE_ENABLED:
         sub = r.subreddit(settings.STOCK_EXCHANGE_SUBREDDIT)
 
-    engine = create_engine('sqlite:///yamecon.db')
+    engine = create_engine('sqlite:///' + settings.DBPATH)
     Session = sessionmaker(bind=engine)
     session = Session()
 

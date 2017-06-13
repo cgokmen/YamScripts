@@ -3,6 +3,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Floa
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+import settings
 
 Base = declarative_base()
 
@@ -33,5 +34,5 @@ class Post(Base):
 #import yamsdaq_models
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///yamecon.db')
+    engine = create_engine('sqlite:///' + settings.DBPATH)
     Base.metadata.create_all(engine)
