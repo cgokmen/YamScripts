@@ -78,7 +78,7 @@ def sendAccount(reddit, session, author, body):
     fAmount, controllers.getAccountBalance(ownerAcct))
 PM_PARSERS['SNDA'] = (sendAccount, sendAccountHelp, standardEconPerms)
 
-balanceHelp = "Shows your bank balance. Format: BALN"
+balanceHelp = "Shows your bank balance and account number. Format: BALN"
 def balance(reddit, session, author, body):
     ownerAcct = controllers.forceGetAccountFromUsername(session, author.name)
     return "You have Y%.2f remaining in your account with number %08d." % (controllers.getAccountBalance(ownerAcct), ownerAcct.number)
@@ -91,7 +91,7 @@ PM_PARSERS['FBAL'] = (fedBalance, fedBalanceHelp, standardEconPerms)
 
 helpHelp = "Shows economy command help. Format: HELP"
 def help(reddit, session, author, body):
-    output = "YAMSDAQbot Help\n\nTo run any command, send it to YAMSDAQbot in a message. The title does not matter.\n\nHere is a list of commands:\n\n"
+    output = "YamTellerBot Help\n\nTo run any command, send it to u/YamTellerBot in a message. The title does not matter.\n\nHere is a list of commands:\n\n"
     for key, value in sorted(PM_PARSERS.iteritems()):
         _, helpString, perms = value
         if perms is None or perms(author):
