@@ -49,6 +49,9 @@ def parseAmount(amountStr):
     if len(r.findall(amountStr)) != 1:
         raise ValueError("Invalid amount. The amount needs to be a positive number at least equal to one cent. You can write it with or without a leading Y, with two or zero decimal places.")
 
+    if amountStr.upper().startswith("Y"):
+        amountStr = amountStr[1:]
+
     d = Decimal(amountStr)
 
     if d < settings.SMALLESTAMOUNT:
