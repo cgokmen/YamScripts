@@ -107,7 +107,7 @@ def yamecon_help(reddit, session, author, body):
     for key, handler in sorted(PM_PARSERS.iteritems()):
         perms = handler.hasPermission
         if perms is None or perms(author):
-            output += "* %s %s\n" % (key, handler.hasPermission)
+            output += "* %s %s\n" % (key, handler.help)
 
     return output
 
