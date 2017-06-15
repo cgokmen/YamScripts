@@ -1,4 +1,6 @@
 from math import floor
+from decimal import Decimal
+import settings
 
 def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{seconds2}"):
     if hasattr(value, 'seconds'):
@@ -39,3 +41,14 @@ def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{secon
         'days_total': days_total,
         'years_total': years_total,
     })
+
+def parseAmount(amountStr):
+    d = Decimal(amountStr)
+
+    if d < settings.SMALLESTAMOUNT:
+        raise ValueError("Invalid amount. The amount needs to be a positive number at least equal to one cent.")
+
+    if d.remainder_near(settings.SMALLESTAMOUNT) != 0:
+        raise ValueError("Invalid amount. The amount parameter should not contain sub-cent digits.")
+
+    return d

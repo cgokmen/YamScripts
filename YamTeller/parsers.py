@@ -1,5 +1,6 @@
 import settings
 import controllers
+import util
 
 PM_PARSERS = {}
 
@@ -13,14 +14,7 @@ def sendUser(reddit, session, author, body):
         raise ValueError("Invalid number of parameters supplied to SNDU. Help: " + sendUserHelp)
 
     amount = tokens[2]
-    fAmount = None
-    try:
-        fAmount = float(amount)
-    except:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
-
-    if fAmount < 0.1:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
+    fAmount = util.parseAmount(amount)
 
     username = tokens[1]
     acct = controllers.getAccountFromUsername(session, username)
@@ -43,14 +37,7 @@ def sendAccount(reddit, session, author, body):
         raise ValueError("Invalid number of parameters supplied to SNDA. Help: " + sendAccountHelp)
 
     amount = tokens[2]
-    fAmount = None
-    try:
-        fAmount = float(amount)
-    except:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
-
-    if fAmount < 0.1:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
+    fAmount = util.parseAmount(amount)
 
     acctNo = tokens[1]
     nAcctNo = None
@@ -110,13 +97,7 @@ def federalPaymentToUser(reddit, session, author, body):
         raise ValueError("Invalid number of parameters supplied to FEDU. Help: " + federalPaymentToUserHelp)
 
     amount = tokens[3]
-    try:
-        fAmount = float(amount)
-    except:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
-
-    if fAmount < 0.1:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
+    fAmount = util.parseAmount(amount)
 
     # From Acct
     facctNo = tokens[1]
@@ -154,13 +135,7 @@ def federalPaymentToAccount(reddit, session, author, body):
         raise ValueError("Invalid number of parameters supplied to FEDA. Help: " + federalPaymentToAccountHelp)
 
     amount = tokens[3]
-    try:
-        fAmount = float(amount)
-    except:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
-
-    if fAmount < 0.1:
-        raise ValueError("Invalid transfer amount. The amount parameter needs to be a positive number at least equal to one cent.")
+    fAmount = util.parseAmount(amount)
 
     # From Acct
     facctNo = tokens[1]

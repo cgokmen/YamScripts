@@ -1,4 +1,5 @@
 from datetime import timedelta
+from decimal import Decimal
 import os
 
 DBFILE = "yamecon.db"
@@ -33,6 +34,7 @@ USERACCTS = (30000000, 99999999)
 
 # BASIC SETTINGS
 STARTINGFUNDS = 50000.0
+SMALLESTAMOUNT = Decimal("0.01")
 
 # TAXATION
 TRANSFERTAX = 0.0
