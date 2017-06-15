@@ -48,14 +48,15 @@ if __name__ == "__main__":
     while(True):
         # TODO: Check database connection
 
+        inbox = r.inbox
+        unread = inbox.unread(mark_read=True)
+        msgsToClean = [x for x in unread]
+
         for handler in loopHandlers:
             handler(r, session)
 
         # Clean up the PM inbox:
-        inbox = r.inbox
-        unread = inbox.unread(mark_read=True)
-
-        for msg in unread:
+        for msg in msgsToClean:
             msg.mark_read()
 
         if killer.kill_now:
