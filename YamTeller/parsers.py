@@ -357,8 +357,8 @@ def deposit_post(reddit, session, author, body):
 
     controllers.transfer_account_money(session, controllers.get_treasury_account(session), account, amount_after_tax)
 
-    return "You have deposited the submission with the ID %s. At Y%.2f per upvote in the subreddit /r/%s, you received Y%.2f for the %d upvotes on your submission after paying Y%.2f in deposit tax." \
-           % (submission.id, multiplier, subreddit.display_name, amount_after_tax, score, post_deposit_tax)
+    return "You have deposited the submission with the ID %s (%s). At Y%.2f per upvote in the subreddit /r/%s, you received Y%.2f for the %d upvotes on your submission after paying Y%.2f in deposit tax." \
+           % (submission.id, submission.title, multiplier, subreddit.display_name, amount_after_tax, score, post_deposit_tax)
 
 
 deposit_post.help = "Deposits a Reddit post's upvote values into the user's bank account. Format: FDPT [post url]"
