@@ -1,6 +1,9 @@
 from math import floor
 from decimal import Decimal
 import settings
+import re
+
+r = re.compile(r"^Y?\d+(\.\d{2})?$")
 
 def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{seconds2}"):
     if hasattr(value, 'seconds'):
@@ -43,6 +46,9 @@ def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{secon
     })
 
 def parseAmount(amountStr):
+    if len(r.findall(amountStr)) != 1:
+        raise ValueError("Invalid amount. The amount needs to be a positive number at least equal to one cent. You can write it with or without a leading Y, with two or zero decimal places.")
+
     d = Decimal(amountStr)
 
     if d < settings.SMALLESTAMOUNT:
