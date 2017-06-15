@@ -1,8 +1,8 @@
-import logging
 import controllers
-from parsers import getPMParser
+from parsers import get_pm_parser
 from models import Account
 import datetime
+
 
 def loop(r, session):
     # Check PMs for account-related requests
@@ -22,19 +22,20 @@ def loop(r, session):
 
         try:
             # Before running the command lets make sure the user has an account first
-            controllers.forceGetAccountFromUsername(session, author.name)
+            controllers.force_get_account_from_username(session, author.name)
 
-            commandFn, commandHelp, commandPerms = getPMParser(command)
+            handler = get_pm_parser(command)
+            has_permission = handler.hasPermission
 
-            if not commandPerms(author):
+            if not has_permission(author):
                 raise ValueError("You do not have the permission to use this command.")
 
-            out = commandFn(r, session, author, body)
+            out = handler(r, session, author, body)
         except ValueError as e:
             out = "An error occurred: %s" % e.message
 
         msg.reply(out)
 
-    for acct in session.query(Account).filter(Account.owner_flair_expiration.isnot(
-            None), Account.owner_flair_expiration <= datetime.datetime.now()):
-        controllers.removeFlair(r, session, acct)
+    for acct in session.query(Account).filter(Account.owner_flair_expiration.isnot(None),
+                                              Account.owner_flair_expiration <= datetime.datetime.now()):
+        controllers.remove_flair(r, session, acct)

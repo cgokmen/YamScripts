@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Float
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import settings
 
 Base = declarative_base()
+
 
 class Account(Base):
     __tablename__ = 'accounts'
@@ -24,6 +25,7 @@ class Account(Base):
     def __repr__(self):
         return '<Account %r ($%.2f in bank)>' % (self.number, self.bank_in_cents / float(100))
 
+
 class Post(Base):
     __tablename__ = 'posts'
 
@@ -31,7 +33,6 @@ class Post(Base):
     owner_number = Column(Integer, ForeignKey('accounts.number'), nullable=True)
     owner = relationship(Account, back_populates="deposited_posts")
 
-#import yamsdaq_models
 
 if __name__ == "__main__":
     engine = create_engine('sqlite:///' + settings.DBPATH)

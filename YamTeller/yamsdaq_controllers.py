@@ -1,5 +1,5 @@
 from yamsdaq_models import Company, Stock, ValuePoint
-from controllers import transferAccountMoney, getAccountBalance, getTreasury
+from controllers import transfer_account_money, get_account_balance, get_treasury_account
 import settings
 
 def getStockValueTaxAmount(value):
@@ -65,7 +65,7 @@ def buyAccountStocks(session, account, company, count):
     totalPrice = valuePerStock * count
 
     # Do the transaction
-    transferAccountMoney(session, account, getTreasury(session), totalPrice)
+    transfer_account_money(session, account, get_treasury_account(session), totalPrice)
     addAccountStocks(session, account, company, count, valuePerStock)
 
 def sellUserStocks(session, account, company, count):
@@ -74,9 +74,9 @@ def sellUserStocks(session, account, company, count):
     totalPrice = valuePerStock * count
 
     # Do the transaction
-    treasury = getTreasury(session)
-    if getAccountBalance(treasury) > totalPrice:
+    treasury = get_treasury_account(session)
+    if get_account_balance(treasury) > totalPrice:
         removeAccountStocks(session, account, company, count)
-        transferAccountMoney(session, treasury, account, totalPrice)
+        transfer_account_money(session, treasury, account, totalPrice)
     else:
         raise ValueError("The Treasury does not have adequate funds to buy these stocks from you.")

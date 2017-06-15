@@ -5,6 +5,7 @@ import re
 
 r = re.compile(r"^Y?\d+(\.\d{2})?$")
 
+
 def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{seconds2}"):
     if hasattr(value, 'seconds'):
         seconds = value.seconds + value.days * 24 * 3600
@@ -45,14 +46,16 @@ def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{secon
         'years_total': years_total,
     })
 
-def parseAmount(amountStr):
-    if len(r.findall(amountStr)) != 1:
-        raise ValueError("Invalid amount. The amount needs to be a positive number at least equal to one cent. You can write it with or without a leading Y, with two or zero decimal places.")
 
-    if amountStr.upper().startswith("Y"):
-        amountStr = amountStr[1:]
+def parse_amount(str_amount):
+    if len(r.findall(str_amount)) != 1:
+        raise ValueError(
+            "Invalid amount. The amount needs to be a positive number at least equal to one cent. You can write it with or without a leading Y, with two or zero decimal places.")
 
-    d = Decimal(amountStr)
+    if str_amount.upper().startswith("Y"):
+        str_amount = str_amount[1:]
+
+    d = Decimal(str_amount)
 
     if d < settings.SMALLESTAMOUNT:
         raise ValueError("Invalid amount. The amount needs to be a positive number at least equal to one cent.")
