@@ -61,6 +61,8 @@ while (True):
             comment = voteSubmission.reply(msg)
             comment.mod.distinguish("yes", True)
 
+            print "Starting voting on submission %s" % voteSubmission.title
+
         startTime = datetime.fromtimestamp(comment.created_utc)
         endTime = startTime + settings.VOTEDURATION
         currentTime = datetime.now()
@@ -177,9 +179,8 @@ while (True):
                 currentTime.strftime("%A, %d %B %Y at %I:%M%p")
             ))
 
-            print("Ending voting on submission")
+            print "Ending voting on submission %s" % voteSubmission.title
 
         comment.edit(msg + readyData)
 
-    print("Completed an iteration.")
     time.sleep(settings.SLEEP)

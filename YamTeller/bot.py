@@ -3,7 +3,6 @@ import settings
 import os
 import praw
 import controllers
-import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import eventloop
@@ -27,7 +26,6 @@ class GracefulKiller(object):
     self.kill_now = True
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     killer = GracefulKiller()
 
     r = praw.Reddit(
@@ -51,7 +49,6 @@ if __name__ == "__main__":
         # TODO: Check database connection
 
         for handler in loopHandlers:
-            logging.info("Running event loop")
             handler(r, session)
 
         # Clean up the PM inbox:
@@ -62,7 +59,7 @@ if __name__ == "__main__":
             msg.mark_read()
 
         if killer.kill_now:
-            print('YamTeller shutting down.')
+            print 'YamTeller shutting down.'
 
             if session is not None:
                 session.close()

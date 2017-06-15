@@ -10,12 +10,15 @@ def loop(r, session):
     unread = inbox.unread(mark_read=True)
 
     for msg in unread:
-        author = msg.author
-        body = msg.body
+        try:
+            author = msg.author
+            body = msg.body
 
-        logging.info("Processing msg from %s: %s" % (author, body))
+            print "Processing msg from %s: %s" % (author, body)
 
-        command = body.split(' ', 1)[0]
+            command = body.split(' ', 1)[0]
+        except:
+            continue
 
         try:
             # Before running the command lets make sure the user has an account first
