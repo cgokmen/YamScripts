@@ -178,6 +178,7 @@ while (True):
                 finished = True
 
         msg = None
+        endPrint = False
         if not finished:
             untilTime = format_timedelta(remainingTime, "{days} days, {hours} hours and {minutes} minutes")
             if settings.CHAMBERS[subName]["quorum"] is not None:
@@ -200,8 +201,11 @@ while (True):
                 currentTime.strftime("%A, %d %B %Y at %I:%M%p")
             ))
 
-            print "Ending voting on submission %s" % voteSubmission.title
+            endPrint = True
 
         comment.edit(msg + readyData)
+
+        if endPrint:
+            print "Ending voting on submission %s" % voteSubmission.title
 
     time.sleep(settings.SLEEP)
