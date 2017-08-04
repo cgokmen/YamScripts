@@ -63,6 +63,26 @@ while (True):
 
             print "Starting voting on submission %s" % voteSubmission.title
 
+            # Loop thru members to ask them to vote
+            flairs = [flair for flair in voteSubmission.subreddit.flair(limit=None)]
+            voters = []
+
+            for flair in flairs:
+                # Let's make sure that the user has the proper flair
+                allowed = False
+                for allowedFlair in settings.CHAMBERS[subName]["flairs"]:
+                    if allowedFlair.lower() in flair["flair_text"].lower():
+                        allowed = True
+                        break
+
+                if allowed:
+                    voters.append(flair["user"])
+
+            for voter in voters:
+                msg = settings.VOTEMESSAGE % (voter.name, voteSubmission.title, voteSubmission.url)
+                voter.message(settings.VOTEMESSAGEHEADER, msg)
+                print "Sent reminder to voter %s" % voter.name
+
         startTime = datetime.fromtimestamp(comment.created_utc)
         endTime = startTime + settings.VOTEDURATION
         currentTime = datetime.now()
@@ -90,7 +110,7 @@ while (True):
                 # Let's make sure that the user has the proper flair
                 allowed = False
                 for allowedFlair in settings.CHAMBERS[subName]["flairs"]:
-                    if reply.author_flair_text is not None and reply.author_flair_text.lower().startswith(allowedFlair.lower()):
+                    if reply.author_flair_text is not None and allowedFlair.lower() in reply.author_flair_text.lower():
                         allowed = True
                         break
 

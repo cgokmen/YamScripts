@@ -21,6 +21,23 @@ CHAMBERS = {
 
 VOTEDURATION = timedelta(0,0,0,0,3) # 1 day
 
+VOTEMESSAGEHEADER = "Yamliament Vote Reminder"
+VOTEMESSAGE = """
+**This is an official message from the Office of the Vice President of the Yam Republic.**
+
+&nbsp;
+
+Dear %s,
+
+This is a reminder that voting on the Yamliamentary bill %s has begun.
+
+To vote, please respond to [this comment](%s).
+
+**You need to reply DIRECTLY TO THE LINKED COMMENT BY THE BOT. Replying to the post itself will result in your vote not being counted.**
+
+Thank you.
+"""
+
 VOTECOMMENTBODY = """
 This comment is automatically populated by the **YamVoting** bot.
 
