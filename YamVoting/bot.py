@@ -59,6 +59,7 @@ while (True):
             )
 
             comment = voteSubmission.reply(msg)
+            comment.disable_inbox_replies()
             comment.mod.distinguish("yes", True)
 
             print "Starting voting on submission %s" % voteSubmission.title
@@ -79,7 +80,7 @@ while (True):
                     voters.append(flair["user"])
 
             for voter in voters:
-                msg = settings.VOTEMESSAGE % (voter.name, voteSubmission.title, voteSubmission.url)
+                msg = settings.VOTEMESSAGE % (voter.name, voteSubmission.title, "http://www.reddit.com/" + comment.permalink())
                 voter.message(settings.VOTEMESSAGEHEADER, msg)
                 print "Sent reminder to voter %s" % voter.name
 
