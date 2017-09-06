@@ -52,7 +52,9 @@ if __name__ == "__main__":
     while True:
         inbox = r.inbox
         unread = inbox.unread(mark_read=True)
-        msgsToClean = [x for x in unread]
+        msgsToClean = []
+        for x in unread:
+            msgsToClean.append(x)
 
         for handler in loopHandlers:
             handler(r, session)
